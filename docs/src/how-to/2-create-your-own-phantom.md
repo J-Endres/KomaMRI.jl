@@ -288,12 +288,11 @@ julia> obj = read_phantom_bifti("subj42-3T.json")
 julia> sys = Scanner(; receiver=read_coil_sens_bifti("subj42-3T.json"))
 ```
 
-Phantoms of the public BIfTI registry are downloaded with `load_registry_phantom` from the BiftiPhantoms.jl package:
+Phantoms of the public BIfTI registry are downloaded with `load_registry_phantom` (re-exported from BiftiPhantoms.jl):
 
 ```julia-repl
-julia> using BiftiPhantoms
 julia> path = load_registry_phantom("endres-bifti_demo-001", "subj42-3T.json")
 julia> obj = read_phantom_bifti(path)
 ```
 
-`B1+` is ignored, as Koma has no transmit-field model. BIfTI `.json` phantoms can also be loaded in the [UI](1-1-use-koma-ui.md) and the [CLI](1-4-use-koma-cli.md).
+`B1+` is ignored, as Koma has no transmit-field model. BIfTI `.json` phantoms can also be loaded in the [UI](1-1-use-koma-ui.md) and the [CLI](1-4-use-koma-cli.md). The UI additionally browses the registry: the cloud button next to the phantom file picker lists every catalog collection with its nested groups, marks default phantoms with ★, and downloads and loads the selection.

@@ -27,6 +27,7 @@ using FileIO, HDF5, MAT, InteractiveUtils, Printf # IO related
 using BiftiPhantoms: VoxelPhantom, load_bifti, scanner_affine # BIfTI phantoms
 using SHA, MD5 # Pulseq signature verification
 using Reexport
+@reexport using BiftiPhantoms: load_catalog, load_registry, load_registry_phantom, flatten_phantoms
 using MRIFiles
 import MRIFiles: insertNode
 @reexport using MRIFiles: ISMRMRDFile
@@ -40,7 +41,7 @@ include("Phantom/Phantom.jl")
 
 export PulseqSequenceData, read_seq, read_seq_data, write_seq, write_seq_data    # Pulseq
 export read_phantom_jemris, read_phantom_MRiLab, read_phantom, write_phantom     # Phantom
-export read_phantom_bifti, read_coil_sens_bifti                                  # BIfTI
+export read_phantom_bifti, read_coil_sens_bifti                                  # BIfTI (+ registry functions of BiftiPhantoms)
 
 # Precompilation workloads for reduced first-use latency
 include("precompile.jl")

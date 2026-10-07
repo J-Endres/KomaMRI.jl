@@ -23,6 +23,7 @@ function launch_ui(;
     seq_file = Ref("")
     phantom_file = Ref("")
     setup_filepickers!(w; seq_file, phantom_file)
+    setup_registry!(w; phantom_file)
     show_window && show!(w)
 
     fieldnames_obj = [fieldnames(Phantom)[5:end-3]...]

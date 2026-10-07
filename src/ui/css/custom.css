@@ -199,7 +199,8 @@ body, button{
 }
 
 .file-dropdown-menu {
-  max-width: 260px;
+  min-width: 16rem;
+  max-width: 320px;
 }
 
 .file-dropdown-menu .filepicker-row {
@@ -373,3 +374,55 @@ abbr[title] {
 .koma-sidebar a.koma-nav-link.iconkoma[aria-current="page"] {
   color: #ffffff;
 }
+
+.koma-registry {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.koma-registry[hidden] { display: none; }
+
+.koma-registry-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: min(900px, 94vw);
+  height: min(620px, 90vh);
+  padding: 1rem;
+  color: #dee2e6;
+  background: #212529;
+  border: 1px solid #495057;
+  border-radius: 0.5rem;
+}
+
+.koma-registry-head { display: flex; align-items: center; justify-content: space-between; }
+.koma-registry-head h5 { margin: 0; }
+.koma-registry-body { display: flex; gap: 1rem; flex: 1; min-height: 0; }
+.koma-registry-tree { flex: 1 1 55%; overflow: auto; padding-right: 0.5rem; }
+.koma-registry-info { flex: 1 1 45%; overflow: auto; display: flex; flex-direction: column; gap: 0.5rem; }
+.koma-registry-tree details { margin-left: 0.9rem; }
+.koma-registry-tree > details { margin-left: 0; }
+.koma-registry-tree summary { cursor: pointer; padding: 2px 4px; border-radius: 0.25rem; }
+.koma-registry-tree summary:hover,
+.koma-registry-tree .koma-registry-leaf:hover { background: #343a40; }
+.koma-registry-leaf {
+  display: block;
+  width: 100%;
+  margin-left: 0.9rem;
+  padding: 2px 4px;
+  text-align: left;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0.25rem;
+}
+.koma-registry-leaf.active { background: #2a7fb8; color: #fff; }
+.koma-registry-default { color: #ffc107; }
+.koma-registry-status { margin: auto; color: #adb5bd; }
+.koma-registry-info dt { color: #adb5bd; font-weight: normal; }
+.koma-registry-info dd { margin-bottom: 0.4rem; }
