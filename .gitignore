@@ -54,3 +54,5 @@ examples/6.magnus_paper/**/output/
 *_w.phantom
 .julia-local/
 .codex_*
+
+.tmp/

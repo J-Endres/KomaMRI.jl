@@ -237,6 +237,26 @@ end
         @test occursin("<b>Names:</b> data_sequence.mat, data_kspace.mat, data_moments.mat", message)
     end
 
+    # Registry tree: groups resolve their default (explicit, else first phantom) and collections follow the catalog order
+    @testset "Phantom registry tree" begin
+        catalog = Dict("Subjects" => "grouped-001", "Flat" => "flat-001", "Unlisted" => "missing-001")
+        registry = Dict(
+            "grouped-001" => Dict("description" => "d", "authors" => [Dict("name" => "A"), Dict("name" => "B")], "license" => "MIT", "doi" => "10.5281/zenodo.1",
+                "phantoms" => [Dict("group" => "s1", "default" => "s1-b.json", "phantoms" => ["s1-a.json", "s1-b.json"]),
+                               Dict("group" => "s2", "phantoms" => [Dict("group" => "3T", "phantoms" => ["s2-3T.json"])])]),
+            "flat-001" => Dict("description" => "d", "authors" => [Dict("name" => "C")], "license" => "MIT", "doi" => "10.5281/zenodo.2",
+                "phantoms" => ["x.json", "y.json"]),
+        )
+        collections = KomaMRI.registry_collections(sort(collect(catalog); by=first), registry)
+        @test [c["collection"] for c in collections] == ["flat-001", "grouped-001"]
+        flat, grouped = collections
+        @test flat["default"] == "x.json"
+        @test grouped["default"] == "s1-b.json"
+        @test grouped["authors"] == "A; B"
+        s2 = grouped["phantoms"][2]
+        @test s2["default"] == s2["phantoms"][1]["default"] == "s2-3T.json"
+    end
+
     @testset "Rendered desktop UI" begin
         is_CI = Base.get_bool_env("CI", false)
         if Sys.isapple() && is_CI
